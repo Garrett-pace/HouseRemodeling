@@ -18,9 +18,6 @@ Session = sessionmaker(bind=engine)
 
 Base = declarative_base()
 
-# Uses models and create the tables
-Base.metadata.create_all(engine)
-
 
 class Room(Base):
     __tablename__ = 'rooms'
@@ -81,3 +78,6 @@ class Supply(Base):
                 f"Quantity: {self.quantity}\n"
                 f"Cost Per Item: {self.cost_per_item}\n"
                 f"Total Supply Cost: {self.total_supply_cost:,.2f}")
+
+# Uses models and create the tables
+Base.metadata.create_all(engine)
