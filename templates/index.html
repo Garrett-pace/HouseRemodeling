@@ -5,6 +5,12 @@
     <title>Title</title>
 </head>
 <body>
+<ul>
+{% for room in All_Rooms %}
+    <li>{{ room.name }}  {{ room.surface_area }}  {{ room.flooring_type }} {{ room.total_remodel_cost }}</li>
+{% endfor %}
+</ul>
+
 
 </body>
 </html>
