@@ -38,14 +38,58 @@ class Room(Base):
     total_remodel_cost = Column(Float)
     total_supply_cost = Column(Float)
 
+    def match_flooring_cost_per_sqft(self):
+        price = 0
+
+        match self.flooring_type:
+            case 'stone':
+                price = 20.00
+            case 'hardwood':
+                price = 15.00
+            case 'laminate':
+                price = 4.00
+            case 'linoleum':
+                price = 8.00
+            case 'vinyl':
+                price = 4.00
+            case _:
+                price = 0.00
+
+        return price
+
+    def match_tiling_cost_per_sqft(self):
+        price = 0
+
+        match self.tile_type:
+            case 'stone':
+                price = 13.00
+            case 'ceramic':
+                price = 19.00
+            case 'porcelain':
+                price = 15.00
+            case 'glass':
+                price = 35.00
+            case 'metal':
+                price = 45.00
+            case _:
+                price = 0.00
+
+        return price
+
     def calc_total_tile_cost(self):
-        self.total_tile_cost = self.tiling_area * self.tile_cost_per_sqft
+        total_tile_cost = self.tiling_area * self.tile_cost_per_sqft
+
+        return total_tile_cost
 
     def calc_flooring_cost(self):
-        self.total_flooring_cost = self.surface_area * self.flooring_cost_per_sqft
+        total_flooring_cost = self.surface_area * self.flooring_cost_per_sqft
+
+        return total_flooring_cost
 
     def calc_total_remodel_cost(self):
-        self.total_remodel_cost = self.total_tile_cost + self.total_flooring_cost + self.total_supply_cost
+        total_remodel_cost = self.total_tile_cost + self.total_flooring_cost + self.total_supply_cost
+
+        return total_remodel_cost
 
     supply = relationship("Supply")
 

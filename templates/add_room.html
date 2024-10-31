@@ -2,9 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Room</title>
+    <style>
+
+    </style>
+
 </head>
 <body>
+    <h1>Add New Room</h1>
+    <form action="/add_room" method="post">
+        <label for="name">Room Name: </label>
+        <input type="text" id="name" name="name" required/><br>
 
+        <label for="surface_area">Total Surface Area (in Square Feet): </label>
+        <input type="number" id="surface_area" name="surface_area" required onchange="getTotalSurfaceArea(this)"/><br>
+
+        <label for="flooring_type">Flooring Type - Cost Per Square Foot: </label>
+        <select name="flooring_type" id="flooring_type" required>
+            <option value="stone">Stone - $20.00</option>
+            <option value="hardwood">Hardwood - $15.00</option>
+            <option value="laminate">Laminate - $4.00</option>
+            <option value="linoleum">Linoleum - $8.00</option>
+            <option value="vinyl">Vinyl - $4.00</option>
+        </select><br>
+
+        <!-- Reveal inputs for Tile type, cost per square foot, and tiling area if clicked.-->
+        <label for="is_tiling_needed">Is Tiling Needed: </label>
+        <input type="checkbox" name="is_tiling_needed" id="is_tiling_needed" onclick="toggleTilingInputs()" unchecked><br>
+
+        <div id="hidden_inputs" style="display: none">
+            <label for="tiling_area">Tiling Area (in Square Feet): </label>
+            <input type="text" id="tiling_area" name="tiling_area" max='${surface_area}'><br>
+
+            <label for="tile_type">Tile Type - Cost Per Square Foot: </label>
+            <select name="tile_type" id="tile_type">
+                <option value="Stone">Stone - $13.00</option>
+                <option value="Ceramic">Ceramic - $19.00</option>
+                <option value="Porcelain">Porcelain - $15.00</option>
+                <option value="Glass">Glass - $35.00</option>
+                <option value="Metal">Metal - $45.00</option>
+            </select><br>
+        </div><br>
+
+        <input type="submit" value="Submit Room Details">
+
+        <!-- total_flooring_cost = (surface_area - tiling_area) * flooring_cost_per_sqft -->
+        <!-- total_tile_cost = tiling_area * tile_cost_per_sqft -->
+    </form>
+    <script>
+        function getTotalSurfaceArea(value) {
+            const tilingAreaInput = document.getElementById('tiling_area');
+            tilingAreaInput.setAttribute('max', value);
+        }
+
+        function toggleTilingInputs() {
+            const hiddenInputs = document.getElementById('hidden_inputs');
+            hiddenInputs.style.display = hiddenInputs.style.display === 'none' ? 'block' : 'none';
+        }
+
+        window.onload = function setUnchecked() {
+            document.getElementById('is_tiling_needed').checked = false;
+        };
+    </script>
 </body>
 </html>
