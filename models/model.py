@@ -100,15 +100,4 @@ class Room(Base):
                 f"Flooring Cost Per Sq Ft: ${self.flooring_cost_per_sqft:,.2f}")
 
 
-
-    room = relationship("Room")
-
-    def __repr__(self):
-        return (f"ID: {self.id}\n"
-                f"Room_ID: {self.room_id}\n"
-                f"Name: {self.name}\n"
-                f"Quantity: {self.quantity}\n"
-                f"Cost Per Item: {self.cost_per_item}\n"
-                f"Total Supply Cost: {self.total_supply_cost:,.2f}")
-
 Base.metadata.create_all(engine)
