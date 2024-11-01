@@ -15,7 +15,7 @@
         <input type="text" id="name" name="name" required/><br>
 
         <label for="surface_area">Total Surface Area (in Square Feet): </label>
-        <input type="number" id="surface_area" name="surface_area" required onchange="getTotalSurfaceArea(this)"/><br>
+        <input type="number" id="surface_area" name="surface_area" min="0" required onchange="getTotalSurfaceArea(this)"/><br>
 
         <label for="flooring_type">Flooring Type - Cost Per Square Foot: </label>
         <select name="flooring_type" id="flooring_type" required>
@@ -28,11 +28,11 @@
 
         <!-- Reveal inputs for Tile type, cost per square foot, and tiling area if clicked.-->
         <label for="is_tiling_needed">Is Tiling Needed: </label>
-        <input type="checkbox" name="is_tiling_needed" id="is_tiling_needed" onclick="toggleTilingInputs()" unchecked><br>
+        <input type="checkbox" name="is_tiling_needed" id="is_tiling_needed" onclick="toggleTilingInputs()"><br>
 
         <div id="hidden_inputs" style="display: none">
             <label for="tiling_area">Tiling Area (in Square Feet): </label>
-            <input type="text" id="tiling_area" name="tiling_area" max='${surface_area}'><br>
+            <input type="number" id="tiling_area" name="tiling_area" min="0"><br>
 
             <label for="tile_type">Tile Type - Cost Per Square Foot: </label>
             <select name="tile_type" id="tile_type">
