@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css" />
 </head>
 <body>
+<h2>Page Thingy</h2>
+<ul>
+{% for room in All_Rooms %}
+    <li>Room Name: {{ room.name }}, Surface Area: {{ room.surface_area }},
+        Flooring Type: {{ room.flooring_type }}
+        Total Remodeling Cost: {{ '%0.2f'|  format(room.total_remodel_cost)|float }}</li>
+{% endfor %}
+</ul>
+
+<ul>
+    <li><p>rjhjhgsdf</p></li>
+</ul>
+
 
 </body>
 </html>
