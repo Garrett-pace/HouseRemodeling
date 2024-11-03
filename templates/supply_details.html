@@ -5,6 +5,31 @@
     <title>Title</title>
 </head>
 <body>
+{% extends 'layout.html' %}
+{% block content %}
+<form action="/supply_details" method="post">
+    <label for="supply_name">supply name</label>
+    <input type="text" id="supply_name" name="supply_name">
 
+    <input type="submit" value="Search">
+</form>
+{% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+<ul>
+{% if Supply_details %}
+    <li>Supply Name - {{ Supply_details.name }}</li>
+    <li>Quantity - {{ Supply_details.quantity }}</li>
+    <li>Cost Per Item - {{ Supply_details.cost_per_item }}</li>
+    <li>Total Supply Cost - {{ Supply_details.total_supply_cost }}</li>
+    {% endif %}
+</ul>
+{% endblock %}
 </body>
 </html>

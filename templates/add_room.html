@@ -9,6 +9,8 @@
 
 </head>
 <body>
+{% extends 'layout.html' %}
+{% block content %}
     <h1>Add New Room</h1>
     <form action="/add_room" method="post">
         <label for="name">Room Name: </label>
@@ -64,5 +66,6 @@
             document.getElementById('is_tiling_needed').checked = false;
         };
     </script>
+{% endblock %}
 </body>
 </html>

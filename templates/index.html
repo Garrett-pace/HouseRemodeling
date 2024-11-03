@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../static/style.css" />
 </head>
 <body>
+{% extends 'layout.html' %}
+{% block content %}
 <h2>Page Thingy</h2>
 <ul>
 {% for room in All_Rooms %}
@@ -16,10 +18,7 @@
 {% endfor %}
 </ul>
 
-<ul>
-    <li><p>rjhjhgsdf</p></li>
-</ul>
-
+{% endblock %}
 
 </body>
 </html>
