@@ -17,18 +17,6 @@
         <p>Total Tile Cost: ${{ room.total_tile_cost }}</p>
     {% endif %}
 
-    <h2>Supplies</h2>
-    <ul>
-    {% for supply in room.supplies %}
-        <li>
-            {{ supply.name }}: Quantity: {{ supply.quantity }},
-            Cost per Item: ${{ supply.cost_per_item }},
-            Total Supply Cost: ${{ supply.total_supply_cost }}
-        </li>
-    {% endfor %}
-    </ul>
-
-    <p>Total Supply Cost: ${{ room.total_supply_cost }}</p>
     <p>Total Remodeling Cost: ${{ room.total_remodel_cost }}</p>
 
     <a href=index.html>Back to Home</a>
