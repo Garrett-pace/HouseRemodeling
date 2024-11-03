@@ -22,8 +22,12 @@
                 </ul>
             {% endif %}
         {% endwith %}
+{% if Supply_details %}
+    <p>{{ Supply_details }}</p>
+{% endif %}
 <ul>
 {% if Supply_details %}
+    <p>Supply_details</p>
     <li>Supply Name - {{ Supply_details.name }}</li>
     <li>Quantity - {{ Supply_details.quantity }}</li>
     <li>Cost Per Item - {{ Supply_details.cost_per_item }}</li>

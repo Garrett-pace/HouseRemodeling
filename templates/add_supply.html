@@ -7,6 +7,27 @@
 <body>
 {% extends 'layout.html' %}
 {% block content %}
+<form action="/add_supply" method="post">
+    <label for="name">Supply Name</label>
+    <input type="text" id="name" name="name">
+
+    <label for="quantity">Supply Name</label>
+    <input type="number" id="quantity" name="quantity">
+
+    <label for="cost">Cost per unit</label>
+    <input type="text" id="cost" name="cost">
+
+    <input type="submit" value="Add Supply item">
+</form>
+{% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
 
 {% endblock %}
 </body>
