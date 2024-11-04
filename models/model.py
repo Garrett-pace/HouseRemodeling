@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, ForeignKey
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 
 
@@ -28,7 +28,7 @@ class Room(Base):
     flooring_cost_per_sqft = Column(Float)
 
     # New Fields
-    is_tiling_needed = Column(String)  # boolean
+    is_tiling_needed = Column(Boolean)  # boolean
     tile_type = Column(String)  # "Ceramic", "Porcelain"
     tile_cost_per_sqft = Column(Float)
     tiling_area = Column(Float)
@@ -37,18 +37,19 @@ class Room(Base):
     total_remodel_cost = Column(Float)
     total_supply_cost = Column(Float)
 
-
-    def __init__(self, name, surface_area, flooring_type, flooring_cost_per_sqft,is_tiling_needed, tile_type, tile_cost_per_sqft,tiling_area, total_supply_cost):
+    def __init__(self, name, surface_area, flooring_type, is_tiling_needed, tile_type, tiling_area):
         self.name = name
-        self.surface_area = surface_area
+        self.surface_area = float(surface_area)
         self.flooring_type = flooring_type
-        self.flooring_cost_per_sqft = flooring_cost_per_sqft
+        self.flooring_cost_per_sqft = self.match_flooring_cost_per_sqft()
         self.is_tiling_needed = is_tiling_needed
-        self.tile_type = tile_type
-        self.tile_cost_per_sqft = tile_cost_per_sqft
-        self.tiling_area = tiling_area
-        self.total_supply_cost = total_supply_cost
-        self.total_tile_cost = self.calc_total_tile_cost()
+        
+        if self.is_tiling_needed:
+            self.tile_type = tile_type
+            self.tile_cost_per_sqft = self.match_tiling_cost_per_sqft()
+            self.tiling_area = float(tiling_area) if is_tiling_needed else 0.0  # Handle tiling correctly
+            self.total_tile_cost = self.calc_total_tile_cost()
+
         self.total_flooring_cost = self.calc_flooring_cost()
         self.total_remodel_cost = self.calc_total_remodel_cost()
 
@@ -96,14 +97,20 @@ class Room(Base):
         return total_tile_cost
 
     def calc_flooring_cost(self):
-        total_flooring_cost = self.surface_area * self.flooring_cost_per_sqft
+        if self.is_tiling_needed:
+            total_flooring_cost = (self.surface_area - self.tiling_area) * self.flooring_cost_per_sqft
+        else:
+            total_flooring_cost = self.surface_area * self.flooring_cost_per_sqft
 
         return total_flooring_cost
 
     def calc_total_remodel_cost(self):
-        total_remodel_cost = self.total_tile_cost + self.total_flooring_cost + self.total_supply_cost
+        total_remodel_cost = self.total_tile_cost + self.total_flooring_cost
 
         return total_remodel_cost
+
+    def add_supply_cost(self, supply_cost):
+        self.total_remodel_cost += supply_cost
 
 
 
