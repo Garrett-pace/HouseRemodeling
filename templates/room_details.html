@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Room Details</title>
 </head>
-<body>
 {% extends 'layout.html' %}
 {% block content %}
-<h1>Room Details: {{ room.name }}</h1>
+
+<body>
+    <h1>Room Details: {{ room.name }}</h1>
+
     <p>Flooring Type: {{ room.flooring_type }}</p>
     <p>Flooring Cost per Sq Ft: ${{ room.flooring_cost_per_sqft }}</p>
     <p>Total Flooring Cost: ${{ room.total_flooring_cost }}</p>
@@ -22,6 +24,7 @@
     <p>Total Remodeling Cost: ${{ room.total_remodel_cost }}</p>
 
     <a href=index.html>Back to Home</a>
+
 {% endblock %}
 
 </body>
