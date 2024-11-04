@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Room Details: {{ room.name }}</h1>
+    <p>Flooring Type: {{ room.flooring_type }}</p>
+    <p>Flooring Cost per Sq Ft: ${{ room.flooring_cost_per_sqft }}</p>
+    <p>Total Flooring Cost: ${{ room.total_flooring_cost }}</p>
+
+    {% if room.is_tiling_needed == "Yes" %}
+        <p>Tile Type: {{ room.tile_type }}</p>
+        <p>Tile Cost per Sq Ft: ${{ room.tile_cost_per_sqft }}</p>
+        <p>Tiling Area: {{ room.tiling_area }} sq ft</p>
+        <p>Total Tile Cost: ${{ room.total_tile_cost }}</p>
+    {% endif %}
+
+    <p>Total Remodeling Cost: ${{ room.total_remodel_cost }}</p>
+
+    <a href=index.html>Back to Home</a>
+{% endblock %}
+
+</body>
+</html>
