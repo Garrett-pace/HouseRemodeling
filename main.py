@@ -12,7 +12,7 @@ app.secret_key = "stdyfugihjfhgfyu"
 ss = SS()
 @app.route("/")
 def index():
-    return render_template('index.html', All_Rooms = get_all_rooms_being_Remodeled() )
+    return render_template('index.html', All_Rooms = get_all_rooms_being_Remodeled())
 
 @app.route("/supply_details", methods=['GET', 'POST'])
 def supply_details():
@@ -24,29 +24,35 @@ def supply_details():
             if supply.name == supply_name:
                 Supply_details = Get_supply_by_name(supply_name)
                 return render_template('supply_details.html', Supply_details=Supply_details)
-            else:
-                flash("This Supply does not exist")
-                return redirect(url_for('supply_details'))
     return render_template("supply_details.html")
 
 @app.route("/room_details", methods=['GET', 'POST'])
 def room_details():
     if request.method == 'POST':
         session['room_name'] = request.form['name']
+        print(session['room_name'])
         All_rooms = Get_all_rooms()
 
         for room in All_rooms:
+            print(room.name + session['room_name'])
             if room.name == session['room_name']:
+                session['roomID'] = room.id
                 RoomDetails = Get_Room_by_name(session['room_name'])
                 return render_template('room_details.html', RoomDetails=RoomDetails)
-            else:
-                flash("This Supply does not exist")
-                return redirect(url_for('room_details'))
     return render_template('room_details.html')
 
 
 @app.route("/edit_room", methods=['GET', 'POST'])
 def edit_room():
+    if request.method == 'POST':
+        name = request.form['name']
+        surface_area = request.form['surface_area']
+        flooring_type = request.form['flooring_type']
+        is_tiling_needed = request.form['is_tiling_needed']
+        tiling_area = request.form['tiling_area']
+        tile_type = request.form['tile_type']
+
+
     return render_template('edit_room.html', RoomDetails=Get_Room_by_name(session['room_name']))
 
 
@@ -92,16 +98,25 @@ def Get_all_supplies():
     return ss.query(Supply).all()
 
 def Get_all_rooms():
+    my_obj = ss.query(Room).all()
+    for room in my_obj:
+       print(room.name)
     return ss.query(Room).all()
 
 def Get_supply_where_supply_id_equals_room_id(room_id):
     return ss.query(Supply).filter(Supply.id == room_id).all()
 
 def Get_Room_by_name(room_name):
+    print(room_name)
+    my_obj = ss.query(Room).filter(Room.name == room_name).all()
+    for result in my_obj:
+        print(result.name)
+
     return ss.query(Room).filter(Room.name == room_name).all()
 
 def delete_item():
     return delete(Room).where(Room.name == session['room_name'])
+
 def get_all_rooms_being_Remodeled():
     return ss.query(Room).filter(Room.is_tiling_needed == 'y').all()
 
