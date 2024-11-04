@@ -16,24 +16,22 @@
 </form>
 
 {% if RoomDetails %}
-    {% for room in RoomDetails %}
-    <h1>Room Details: {{ room.name }}</h1>
+    <h1>Room Details: {{ RoomDetails.name }}</h1>
     <a href="/edit_room">Edit Room</a>
-    <p>Flooring Type: {{ room.flooring_type }}</p>
-    <p>Flooring Cost per Sq Ft: ${{ room.flooring_cost_per_sqft }}</p>
-    <p>Total Flooring Cost: ${{ room.total_flooring_cost }}</p>
+    <p>Flooring Type: {{ RoomDetails.flooring_type }}</p>
+    <p>Flooring Cost per Sq Ft: ${{ RoomDetails.flooring_cost_per_sqft }}</p>
+    <p>Total Flooring Cost: ${{ RoomDetails.total_flooring_cost }}</p>
 
-    {% if room.is_tiling_needed == "y" %}
-        <p>Tile Type: {{ room.tile_type }}</p>
-        <p>Tile Cost per Sq Ft: ${{ room.tile_cost_per_sqft }}</p>
-        <p>Tiling Area: {{ room.tiling_area }} sq ft</p>
-        <p>Total Tile Cost: ${{ room.total_tile_cost }}</p>
+    {% if RoomDetails.is_tiling_needed == "y" %}
+        <p>Tile Type: {{ RoomDetails.tile_type }}</p>
+        <p>Tile Cost per Sq Ft: ${{ RoomDetails.tile_cost_per_sqft }}</p>
+        <p>Tiling Area: {{ RoomDetails.tiling_area }} sq ft</p>
+        <p>Total Tile Cost: ${{ RoomDetails.total_tile_cost }}</p>
     {% endif %}
 
-    <p>Total Remodeling Cost: ${{ room.total_remodel_cost }}</p>
+    <p>Total Remodeling Cost: ${{ RoomDetails.total_remodel_cost }}</p>
 
     <a href=index.html>Back to Home</a>
-{% endfor %}
 {% endif %}
 {% endblock %}
 
