@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey, update
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 
 
@@ -105,15 +105,6 @@ class Room(Base):
 
         return total_remodel_cost
 
-
-
-    def __repr__(self):
-        return (f"ID: {self.id}\n"
-                f"Name: {self.name}\n"
-                f"Surface Area: {self.surface_area:,.2f}\n"
-                f"Flooring Type: {self.flooring_type}\n"
-                f"Flooring Cost Per Sq Ft: ${self.flooring_cost_per_sqft:,.2f}")
-
 class Supply(Base):
     __tablename__ = 'supplies'
 
@@ -134,15 +125,6 @@ class Supply(Base):
        return self.quantity * self.cost_per_item
 
     room = relationship("Room")
-
-    def __repr__(self):
-        return (f"ID: {self.id}\n"
-                f"Room_ID: {self.room_id}\n"
-                f"Name: {self.name}\n"
-                f"Quantity: {self.quantity}\n"
-                f"Cost Per Item: {self.cost_per_item}\n"
-                f"Total Supply Cost: {self.total_supply_cost:,.2f}")
-
 
 # Uses models and create the tables
 Base.metadata.create_all(engine)
