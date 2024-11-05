@@ -22,7 +22,7 @@
     <p>Flooring Cost per Sq Ft: ${{ RoomDetails.flooring_cost_per_sqft }}</p>
     <p>Total Flooring Cost: ${{ RoomDetails.total_flooring_cost }}</p>
 
-    {% if RoomDetails.is_tiling_needed == "y" %}
+    {% if RoomDetails.is_tiling_needed == 1 %}
         <p>Tile Type: {{ RoomDetails.tile_type }}</p>
         <p>Tile Cost per Sq Ft: ${{ RoomDetails.tile_cost_per_sqft }}</p>
         <p>Tiling Area: {{ RoomDetails.tiling_area }} sq ft</p>
