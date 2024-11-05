@@ -12,7 +12,19 @@ ss = SS()
 
 @app.route("/")
 def index():
-    return render_template('index.html', All_Rooms = get_all_rooms_being_Remodeled())
+    room_names = [room.name for room in ss.query(Room).all()]
+    remodel_costs = [room.total_remodel_cost for room in ss.query(Room).all()]
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x=room_names, y=remodel_costs, palette="viridis")
+    plt.title("Total Remodeling Cost per Room")
+    plt.xlabel("Room")
+    plt.ylabel("Total Remodel Cost ($)")
+
+    img_path = os.path.join(app.root_path, "static", "plot.png")
+    plt.savefig(img_path)
+    plt.close()
+    return render_template('index.html', All_Rooms=get_all_rooms_being_Remodeled(),
+                           plot_url=url_for('static', filename='plot.png'))
 
 @app.route("/supply_details", methods=['GET', 'POST'])
 def supply_details():
@@ -120,7 +132,7 @@ def Get_Room_by_name(room_name):
     return ss.query(Room).filter(Room.name == room_name).first()
 
 def get_all_rooms_being_Remodeled():
-    return ss.query(Room).filter(Room.is_tiling_needed == 'y').all()
+    return ss.query(Room).filter(Room.is_tiling_needed == True).all()
 
 
 if __name__ == "__main__":
