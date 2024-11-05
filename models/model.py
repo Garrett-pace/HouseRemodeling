@@ -105,7 +105,10 @@ class Room(Base):
         return total_flooring_cost
 
     def calc_total_remodel_cost(self):
-        total_remodel_cost = self.total_tile_cost + self.total_flooring_cost
+        if self.is_tiling_needed:
+            total_remodel_cost = self.total_tile_cost + self.total_flooring_cost
+        else:
+            total_remodel_cost = self.total_flooring_cost
 
         return total_remodel_cost
 
