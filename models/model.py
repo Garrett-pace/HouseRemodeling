@@ -43,7 +43,7 @@ class Room(Base):
         self.flooring_type = flooring_type
         self.flooring_cost_per_sqft = self.match_flooring_cost_per_sqft()
         self.is_tiling_needed = is_tiling_needed
-        
+
         if self.is_tiling_needed:
             self.tile_type = tile_type
             self.tile_cost_per_sqft = self.match_tiling_cost_per_sqft()
@@ -105,7 +105,10 @@ class Room(Base):
         return total_flooring_cost
 
     def calc_total_remodel_cost(self):
-        total_remodel_cost = self.total_tile_cost + self.total_flooring_cost
+        if self.is_tiling_needed:
+            total_remodel_cost = self.total_tile_cost + self.total_flooring_cost
+        else:
+            total_remodel_cost = self.total_flooring_cost
 
         return total_remodel_cost
 
