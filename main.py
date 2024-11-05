@@ -60,7 +60,7 @@ def edit_room():
         name = request.form['name']
         surface_area = request.form['surface_area']
         flooring_type = request.form['flooring_type']
-        is_tiling_needed = request.form['is_tiling_needed']
+        is_tiling_needed = request.form.get('is_tiling_needed') == 'on'
         tiling_area = request.form['tiling_area']
         tile_type = request.form['tile_type']
         print(session['roomID'])
