@@ -70,8 +70,30 @@ def add_supply():
 def add_room():
     if request.method == 'POST':
         name = request.form['name']
-        surface_area = request.form['surface_area']
+        surface_area = float(request.form['surface_area'])
         flooring_type = request.form['flooring_type']
+
+        # Use .get() to avoid KeyError if the checkbox is not checked
+        is_tiling_needed = request.form.get('is_tiling_needed') == 'on'
+
+        tiling_area = 0.0
+        tile_type = ""
+
+        if is_tiling_needed:
+            tiling_area = float(request.form['tiling_area'])
+            tile_type = request.form['tile_type']
+
+        if tiling_area > surface_area:
+            flash("Tiling area cannot be larger than total surface area.")
+            return redirect(url_for('add_room'))
+
+        room = Room(name, surface_area, flooring_type, is_tiling_needed, tile_type, tiling_area)
+        session.add(room)
+        session.commit()
+        session.refresh(room)
+        session.close()
+        flash("Room has been added.")
+        return redirect(url_for('add_room'))
 
     return render_template("add_room.html")
 

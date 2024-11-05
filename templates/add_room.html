@@ -38,11 +38,11 @@
 
             <label for="tile_type">Tile Type - Cost Per Square Foot: </label>
             <select name="tile_type" id="tile_type">
-                <option value="Stone">Stone - $13.00</option>
-                <option value="Ceramic">Ceramic - $19.00</option>
-                <option value="Porcelain">Porcelain - $15.00</option>
-                <option value="Glass">Glass - $35.00</option>
-                <option value="Metal">Metal - $45.00</option>
+                <option value="stone">Stone - $13.00</option>
+                <option value="ceramic">Ceramic - $19.00</option>
+                <option value="porcelain">Porcelain - $15.00</option>
+                <option value="glass">Glass - $35.00</option>
+                <option value="metal">Metal - $45.00</option>
             </select><br>
         </div><br>
 
@@ -60,12 +60,35 @@
         function toggleTilingInputs() {
             const hiddenInputs = document.getElementById('hidden_inputs');
             hiddenInputs.style.display = hiddenInputs.style.display === 'none' ? 'block' : 'none';
+
+            if (hiddenInputs.style.display === 'block') {
+                const tilingAreaInput = document.getElementById('tiling_area');
+                const tileTypeInput = document.getElementById('tile_type');
+
+                if (document.getElementById('is_tiling_needed').checked === true) {
+                    tilingAreaInput.setAttribute('required', true)
+                    tileTypeInput.setAttribute('required', true)
+                } else if (document.getElementById('is_tiling_needed').checked === false) {
+                    tilingAreaInput.removeAttribute('required')
+                    tileTypeInput.removeAttribute('required')
+                }
+            }
         }
 
         window.onload = function setUnchecked() {
             document.getElementById('is_tiling_needed').checked = false;
         };
     </script>
+
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="warning_message_list">
+                    {% for message in messages %}
+                        <li class="warning_message_item">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
 {% endblock %}
 </body>
 </html>
