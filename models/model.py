@@ -112,6 +112,7 @@ class Room(Base):
 
         return total_remodel_cost
 
+
     def add_supply_cost(self, supply_cost):
         self.total_remodel_cost += supply_cost
 
@@ -144,15 +145,6 @@ class Supply(Base):
        return self.quantity * self.cost_per_item
 
     room = relationship("Room")
-
-    def __repr__(self):
-        return (f"ID: {self.id}\n"
-                f"Room_ID: {self.room_id}\n"
-                f"Name: {self.name}\n"
-                f"Quantity: {self.quantity}\n"
-                f"Cost Per Item: {self.cost_per_item}\n"
-                f"Total Supply Cost: {self.total_supply_cost:,.2f}")
-
 
 # Uses models and create the tables
 Base.metadata.create_all(engine)
