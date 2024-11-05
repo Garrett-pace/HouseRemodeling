@@ -12,8 +12,8 @@ ss = SS()
 
 @app.route("/")
 def index():
-    room_names = [room.name for room in session.query(Room).all()]
-    remodel_costs = [room.total_remodel_cost for room in session.query(Room).all()]
+    room_names = [room.name for room in ss.query(Room).all()]
+    remodel_costs = [room.total_remodel_cost for room in ss.query(Room).all()]
     plt.figure(figsize=(10, 6))
     sns.barplot(x=room_names, y=remodel_costs, palette="viridis")
     plt.title("Total Remodeling Cost per Room")
@@ -24,12 +24,6 @@ def index():
     plt.savefig(img_path)
     plt.close()
     return render_template('index.html', All_Rooms = get_all_rooms_being_Remodeled(), plot_url= url_for('static', filename='plot.png'))
-
-
-
-def get_all_rooms_being_Remodeled():
-    return session.query(Room).filter(Room.is_tiling_needed == 'y').all()
-
 
 @app.route("/supply_details", methods=['GET', 'POST'])
 def supply_details():
@@ -134,10 +128,10 @@ def add_room():
             return redirect(url_for('add_room'))
 
         room = Room(name, surface_area, flooring_type, is_tiling_needed, tile_type, tiling_area)
-        session.add(room)
-        session.commit()
-        session.refresh(room)
-        session.close()
+        ss.add(room)
+        ss.commit()
+        ss.refresh(room)
+        ss.close()
         flash("Room has been added.")
         return redirect(url_for('add_room'))
 
