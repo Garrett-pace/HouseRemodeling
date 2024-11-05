@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <title>Room Details</title>
 </head>
+{% extends 'layout.html' %}
+{% block content %}
+
 <body>
     <h1>Room Details: {{ room.name }}</h1>
+
     <p>Flooring Type: {{ room.flooring_type }}</p>
     <p>Flooring Cost per Sq Ft: ${{ room.flooring_cost_per_sqft }}</p>
     <p>Total Flooring Cost: ${{ room.total_flooring_cost }}</p>
@@ -20,5 +24,8 @@
     <p>Total Remodeling Cost: ${{ room.total_remodel_cost }}</p>
 
     <a href=index.html>Back to Home</a>
+
+{% endblock %}
+
 </body>
 </html>
